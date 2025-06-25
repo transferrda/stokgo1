@@ -2,10 +2,19 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
+import tempfile
 
 def check_product(product_code_or_link):
     options = Options()
     options.headless = True
+    options.add_argument("--no-sandbox")            # sandbox kapatıldı
+    options.add_argument("--disable-dev-shm-usage") # shared memory kullanımını devre dışı bırak
+    options.add_argument("--disable-gpu")            # GPU kapalı (bazı sistemlerde gerekebilir)
+    
+    # Geçici benzersiz user-data-dir (bunu ekle, Render hatası için)
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={temp_dir}")
+
     driver = webdriver.Chrome(options=options)
 
     try:

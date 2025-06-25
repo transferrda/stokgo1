@@ -1,26 +1,27 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import time
+from selenium.webdriver.common.by import By
 import tempfile
+import time
+import os
 
 def check_product(product_code_or_link):
     options = Options()
     options.headless = True
-    options.add_argument("--no-sandbox")            # sandbox kapatıldı
-    options.add_argument("--disable-dev-shm-usage") # shared memory kullanımını devre dışı bırak
-    options.add_argument("--disable-gpu")            # GPU kapalı (bazı sistemlerde gerekebilir)
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
 
-    # Chrome binary yolu (Render ortamı için)
-    options.binary_location = "/usr/bin/chromium-browser"
+    # Chromium binary yolunu belirt
+    chromium_path = os.getenv("CHROME_BIN", "/usr/bin/chromium")
+    options.binary_location = chromium_path
 
-    # Geçici benzersiz user-data-dir (Render hatası için)
     temp_dir = tempfile.mkdtemp()
     options.add_argument(f"--user-data-dir={temp_dir}")
 
-    # webdriver-manager ile ChromeDriver kurulumu ve servisi
+    # Webdriver servisini oluştur
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 

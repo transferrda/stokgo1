@@ -12,7 +12,10 @@ def check_product(product_code_or_link):
     options.add_argument("--no-sandbox")            # sandbox kapatıldı
     options.add_argument("--disable-dev-shm-usage") # shared memory kullanımını devre dışı bırak
     options.add_argument("--disable-gpu")            # GPU kapalı (bazı sistemlerde gerekebilir)
-    
+
+    # Chrome binary yolu (Render ortamı için)
+    options.binary_location = "/usr/bin/chromium-browser"
+
     # Geçici benzersiz user-data-dir (Render hatası için)
     temp_dir = tempfile.mkdtemp()
     options.add_argument(f"--user-data-dir={temp_dir}")

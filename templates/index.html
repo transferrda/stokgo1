@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<title>StokGo - Ürün Sorgulama</title>
+</head>
+<body>
+<h1>Ürün Kodu ile Stok ve Satış Sorgulama</h1>
+<form method="post">
+    <label>Ürün Kodu veya Link:</label><br/>
+    <input type="text" name="product_code" required/><br/><br/>
+
+    <label>Mağaza Seçin:</label><br/>
+    <select name="store" required>
+        {% for store in stores %}
+        <option value="{{ store }}">{{ store }}</option>
+        {% endfor %}
+    </select><br/><br/>
+
+    <button type="submit">Ara</button>
+</form>
+
+{% if result %}
+    <h2>Sonuç:</h2>
+    {% if result.available %}
+        <p>Ürün bulundu! <a href="{{ result.url }}" target="_blank">Ürünü Görüntüle</a></p>
+    {% else %}
+        <p>Ürün bulunamadı.</p>
+    {% endif %}
+{% endif %}
+</body>
+</html>

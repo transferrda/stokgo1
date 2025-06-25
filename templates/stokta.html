@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>StokGo - Fiziksel Stok Sorgulama</title>
+</head>
+<body>
+    <h1>Fiziksel Mağaza Stok Sorgulama</h1>
+    <form method="POST">
+        <input type="text" name="product" placeholder="Ürün kodu" required style="width:300px;" />
+        <br><br>
+        <label for="city">Şehir:</label>
+        <select name="city" id="city">
+            <option>İstanbul</option>
+            <option>Ankara</option>
+            <option>İzmir</option>
+            <option>Bursa</option>
+            <option>Antalya</option>
+        </select>
+        <br><br>
+        <label for="store">Mağaza:</label>
+        <select name="store" id="store">
+            <option>LC Waikiki</option>
+            <option>Zara</option>
+            <option>Mavi</option>
+            <option>Koton</option>
+            <option>Trendyol</option>
+            <option>Hepsiburada</option>
+        </select>
+        <br><br>
+        <button type="submit">Sorgula</button>
+    </form>
+
+    {% if result %}
+        <h2>Sonuç</h2>
+        <p>{{ result.details }}</p>
+    {% endif %}
+</body>
+</html>
